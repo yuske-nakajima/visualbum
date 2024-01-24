@@ -1,7 +1,5 @@
 import { NextReactP5Wrapper } from '@p5-wrapper/next'
 import { type Sketch } from '@p5-wrapper/react'
-
-const fontsize = 32
 let isRandom = true
 
 const sketch: Sketch = (p5) => {
@@ -9,24 +7,26 @@ const sketch: Sketch = (p5) => {
 
   p5.setup = () => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight)
-    p5.textSize(fontsize)
     p5.textAlign()
   }
 
   p5.draw = () => {
-    if (p5.frameCount % 30 !== 0) return
+    if (p5.frameCount % 45 !== 0) return
     isRandom = !isRandom
 
     p5.background(0)
 
     // Set the gap between letters and the left and top margin
-    let gap = isRandom ? p5.random(28, 32) : 50
+    const fontsize = isRandom ? 16 : 44
+    p5.textSize(fontsize)
+
+    let gap = isRandom ? p5.random(28, 32) : 70
     let margin = isRandom ? p5.random(4, 8) : 20
     p5.translate(margin * 2, margin * 2)
 
     let isColorDisplay = true
     let count = Math.floor(p5.random(0, 100))
-    const letters = 'PROGRAMMING WORK SHOP '.split('')
+    const letters = 'HUNTER HUNTER HUNTER '.split('')
     const colors = [
       [200, 200, p5.random(200, 255)],
       [200, p5.random(200, 255), 200],
@@ -46,9 +46,9 @@ const sketch: Sketch = (p5) => {
         } else {
           const colorCount = Math.floor(count / letters.length)
           if (isColorDisplay && colorCount % 10 === 0) {
-            if (count % letters.length > 15) {
+            if (count % letters.length > 13) {
               p5.fill(colors[0][0], colors[0][1], colors[0][2])
-            } else if (count % letters.length > 11) {
+            } else if (count % letters.length > 5) {
               p5.fill(colors[1][0], colors[1][1], colors[1][2])
             } else {
               p5.fill(colors[2][0], colors[2][1], colors[2][2])

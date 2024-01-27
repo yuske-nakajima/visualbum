@@ -1,10 +1,6 @@
+import { Point } from '@/lib/types'
 import { NextReactP5Wrapper } from '@p5-wrapper/next'
 import { P5CanvasInstance, type Sketch } from '@p5-wrapper/react'
-
-type Point = {
-  x: number
-  y: number
-}
 
 const NUM = 5
 const R = 300

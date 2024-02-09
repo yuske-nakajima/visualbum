@@ -6,7 +6,7 @@ module.exports = {
   semi: false, // セミコロンを使用しない
   singleQuote: true, // シングルクォートを使用する
   jsxSingleQuote: true, // JSX内でもシングルクォートを使用する
-  printWidth: 100, // 行の最大幅を120に設定する
+  printWidth: 80, // 行の最大幅を80に設定する
   useTabs: false, // インデントにタブを使用しない
   quoteProps: 'as-needed', // オブジェクトのプロパティ名を引用符で囲む場合、必要に応じてのみ囲む
   bracketSpacing: true, // オブジェクトの{}内や配列の[]内のスペースを追加する

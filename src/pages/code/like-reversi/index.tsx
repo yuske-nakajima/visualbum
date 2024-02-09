@@ -27,7 +27,10 @@ const sketch: Sketch = (p5) => {
   p5.draw = () => {
     p5.fill(color)
     const direction: Direction =
-      directionList[Math.floor(Math.random() * directionList.length + 1) % directionList.length]
+      directionList[
+        Math.floor(Math.random() * directionList.length + 1) %
+          directionList.length
+      ]
 
     const confirmPoint = movePoint(particlePoint, direction, CIRCLE_WIDTH)
     if (

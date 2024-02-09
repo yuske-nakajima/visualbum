@@ -15,7 +15,10 @@ const sketch: Sketch = (p5) => {
     p5.rotateZ(p5.frameCount * 0.01)
     p5.rotateX(p5.frameCount * 0.02)
     p5.rotateY(p5.frameCount * 0.03)
-    p5.box((p5.frameCount % p5.windowWidth) / 2, (p5.frameCount % p5.windowWidth) / 2)
+    p5.box(
+      (p5.frameCount % p5.windowWidth) / 2,
+      (p5.frameCount % p5.windowWidth) / 2,
+    )
     p5.pop()
   }
 }

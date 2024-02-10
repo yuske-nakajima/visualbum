@@ -44,7 +44,6 @@ const sketch: Sketch = (p5) => {
     p5.push()
     p5.stroke(mainColor.r, mainColor.g, mainColor.b)
     p5.strokeWeight(1)
-    p5.line(p5.windowWidth / 2, 0, p5.windowWidth / 2, p5.windowHeight)
     p5.line(0, p5.windowHeight / 2, p5.windowWidth, p5.windowHeight / 2)
     p5.pop()
 
@@ -65,11 +64,8 @@ const sketch: Sketch = (p5) => {
       const sine = p5.sin(angle) // サインカーブを計算
       const positionY = amplitude * sine // y座標を計算（サインカーブを利用）
 
-      p5.vertex(positionX, positionY) // 頂点を追加
-
       // 真ん中に縦横線
       p5.push()
-      p5.translate(0, 0) // 描画位置を変更
       p5.stroke(mainColor.r, mainColor.g, mainColor.b)
       p5.strokeWeight(1)
       p5.line(positionX, 0, positionX, p5.windowHeight)
@@ -77,16 +73,17 @@ const sketch: Sketch = (p5) => {
 
       p5.push()
       p5.translate(0, p5.windowHeight / 2) // 描画位置を変更
+      p5.fill(mainColor.r, mainColor.g, mainColor.b) // 塗りつぶしのカラーを指定
       // サインカーブの中心に円を描く
       if (i === p5.round(res / 2)) {
         p5.fill(accentColor.r, accentColor.g, accentColor.b)
         p5.stroke(accentColor.r, accentColor.g, accentColor.b)
-        p5.ellipse(positionX, positionY, 10, 10)
         dataSine = sine
       }
+      p5.line(positionX, 0, positionX, positionY) // 線を描く
+      p5.ellipse(positionX, positionY, 10, 10)
       p5.pop()
     }
-    p5.translate(0, p5.windowHeight / 2) // 描画位置を変更
     p5.endShape() // 図形の描画を終了
     p5.pop() // 保存しておいた描画スタイルを復元
 

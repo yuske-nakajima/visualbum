@@ -6,7 +6,6 @@ const ballSize = 10
 const sketch: Sketch = (p5) => {
   p5.setup = () => {
     p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
-    p5.frameRate(30)
   }
 
   p5.draw = () => {
@@ -21,8 +20,10 @@ const sketch: Sketch = (p5) => {
     p5.line(diameter, diameter - radius, diameter, diameter + radius)
 
     const value = p5.frameCount % 360
-    const vx = diameter + p5.sin(p5.radians(value)) * radius
-    const vy = diameter + p5.cos(p5.radians(value)) * radius
+    const sin = p5.sin(p5.radians(value))
+    const cos = p5.cos(p5.radians(value))
+    const vx = diameter + sin * radius
+    const vy = diameter + cos * radius
 
     // 半径
     p5.push()
@@ -37,7 +38,7 @@ const sketch: Sketch = (p5) => {
 
     p5.push()
     p5.strokeWeight(6)
-    p5.line(diameter, diameter, diameter, vy)
+    // p5.line(diameter, diameter, diameter, vy)
     p5.pop()
     // sin-補助線
     p5.push()
@@ -53,7 +54,7 @@ const sketch: Sketch = (p5) => {
 
     p5.push()
     p5.strokeWeight(6)
-    p5.line(diameter, diameter, vx, diameter)
+    // p5.line(diameter, diameter, vx, diameter)
     p5.pop()
     // cos-補助線
     p5.push()

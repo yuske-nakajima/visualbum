@@ -22,8 +22,8 @@ const sketch: Sketch = (p5) => {
     const value = p5.frameCount % 360
     const sin = p5.sin(p5.radians(value))
     const cos = p5.cos(p5.radians(value))
-    const vx = diameter + sin * radius
-    const vy = diameter + cos * radius
+    const vx = diameter + cos * radius
+    const vy = diameter + sin * radius
 
     // 半径
     p5.push()
@@ -63,6 +63,9 @@ const sketch: Sketch = (p5) => {
     p5.pop()
 
     p5.pop()
+
+    p5.text(`sin: ${sin.toFixed(2)}`, 10, 20)
+    p5.text(`cos: ${cos.toFixed(2)}`, 10, 40)
   }
 }
 

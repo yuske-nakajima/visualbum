@@ -25,13 +25,6 @@ const sketch: Sketch = (p5) => {
     const vx = diameter.x + cos * radius
     const vy = diameter.y + -sin * radius
 
-    // 半径
-    p5.push()
-    p5.strokeWeight(6)
-    p5.stroke(360, p5.width, p5.height)
-    p5.line(diameter.x, diameter.y, vx, vy)
-    p5.pop()
-
     // sin
     p5.push()
     p5.stroke(120, p5.width, p5.height)
@@ -62,6 +55,18 @@ const sketch: Sketch = (p5) => {
     p5.line(vx, vy, vx, diameter.y)
     p5.pop()
 
+    p5.pop()
+
+    p5.push()
+    p5.strokeWeight(3)
+    p5.arc(diameter.x, diameter.y, radius / 4, radius / 4, -radians, 0, p5.PIE)
+    p5.pop()
+
+    // 半径
+    p5.push()
+    p5.strokeWeight(6)
+    p5.stroke(360, p5.width, p5.height)
+    p5.line(diameter.x, diameter.y, vx, vy)
     p5.pop()
 
     p5.push()

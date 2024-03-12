@@ -12,11 +12,13 @@
   "dependencies": {
     "@p5-wrapper/next": "^1.0.2",
     "@p5-wrapper/react": "^4.3.2",
+    "matter-js": "^0.19.0",
     "next": "latest",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@types/matter-js": "^0.19.6",
     "@types/node": "^20",
     "@types/p5": "^1.7.6",
     "@types/react": "^18",

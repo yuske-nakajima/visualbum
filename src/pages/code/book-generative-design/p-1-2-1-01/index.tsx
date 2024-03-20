@@ -1,6 +1,6 @@
 import { NextReactP5Wrapper } from '@p5-wrapper/next'
 import { type Sketch } from '@p5-wrapper/react'
-import {Color} from 'p5'
+import { Color } from 'p5'
 
 // P.1.2.1 補完で作るカラーパレット
 const TILE_LENGTH = 100
@@ -14,8 +14,12 @@ const sketch: Sketch = (p5) => {
     p5.colorMode(p5.RGB)
 
     for (let i = 0; i < TILE_LENGTH; i++) {
-      colorsLeft.push(p5.color(p5.random(0, 100), p5.random(0, 100), p5.random(0, 100)))
-      colorsRight.push(p5.color(p5.random(0, 100), p5.random(0, 100), p5.random(0, 100)))
+      colorsLeft.push(
+        p5.color(p5.random(0, 100), p5.random(0, 100), p5.random(0, 100)),
+      )
+      colorsRight.push(
+        p5.color(p5.random(0, 100), p5.random(0, 100), p5.random(0, 100)),
+      )
     }
   }
 
@@ -33,9 +37,7 @@ const sketch: Sketch = (p5) => {
       for (let gridX = 0; gridX < tileCountX; gridX++) {
         const amount = 10
 
-        p5.fill(
-          p5.lerpColor(colFrom, colTo, amount)
-        )
+        p5.fill(p5.lerpColor(colFrom, colTo, amount))
 
         const posX = tileWidth + gridX
         const posY = tileHeight + gridY

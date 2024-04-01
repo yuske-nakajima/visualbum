@@ -1,4 +1,4 @@
-import { Mover } from '@/pages/code/udemy-practice/section5/mover'
+import { Mover } from '@/lib/class/mover'
 import { P5CanvasInstance } from '@p5-wrapper/react'
 import { Vector } from 'p5'
 

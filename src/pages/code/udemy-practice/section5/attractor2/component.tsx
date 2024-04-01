@@ -1,5 +1,5 @@
-import { Attractor } from '@/pages/code/udemy-practice/section5/attractor'
-import { Mover } from '@/pages/code/udemy-practice/section5/mover'
+import { Attractor } from '@/lib/class/attractor'
+import { Mover } from '@/lib/class/mover'
 import { NextReactP5Wrapper } from '@p5-wrapper/next'
 import { type Sketch } from '@p5-wrapper/react'
 

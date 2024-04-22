@@ -8,4 +8,4 @@ bun dev
 ```
 
 ## サイト
-https://visualbum-yuske-nakajima.vercel.app/
+https://visualbum.vercel.app/

@@ -3,10 +3,7 @@ import { P5CanvasInstance } from '@p5-wrapper/react'
 import { Vector } from 'p5'
 
 export class Ball {
-  get size(): number {
-    return this._size
-  }
-  private readonly _size: number
+  private readonly size: number
   get velocity(): Vector {
     return this._velocity
   }
@@ -19,9 +16,12 @@ export class Ball {
     return this._location
   }
 
+  set location(value: Vector) {
+    this._location = value
+  }
   private readonly p5: P5CanvasInstance
   private readonly color: HSB
-  private readonly _location: Vector
+  private _location: Vector
 
   constructor(
     p5: P5CanvasInstance,
@@ -34,17 +34,18 @@ export class Ball {
     this._location = location
     this._velocity = velocity
     this.color = color
-    this._size = size
+    this.size = size
   }
 
   display() {
     this.p5.push()
-    this.p5.noStroke()
+    this.p5.strokeWeight(10)
     this.p5.colorMode(this.p5.HSB)
     const { h, s, b } = this.color
-    this.p5.fill(h, s, b)
+    this.p5.stroke(h, s, b)
+    this.p5.fill(h, s, b, 0.3)
     const { x, y } = this._location
-    this.p5.ellipse(x, y, this._size)
+    this.p5.ellipse(x, y, this.size)
     this.p5.pop()
   }
 }

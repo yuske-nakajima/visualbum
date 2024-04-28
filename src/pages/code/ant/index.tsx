@@ -14,10 +14,8 @@ const sketch: Sketch = (p5) => {
 
   let moveIndex = 0
 
-  p5.preload = () => {}
-
   p5.setup = () => {
-    p5.createCanvas(p5.windowWidth, p5.windowHeight)
+    p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
     p5.background(255)
     p5.noStroke()
   }
@@ -25,6 +23,8 @@ const sketch: Sketch = (p5) => {
   const width = 5
   const W = Math.floor(p5.windowWidth / width)
   const H = Math.floor(p5.windowHeight / width)
+  console.log('W', W, W * 10)
+  console.log('H', H)
 
   const nowPoint: Point = { x: Math.floor(W / 2), y: Math.floor(H / 2) }
   // const nowPoint: Point = { x: 0, y: 0 }
@@ -57,17 +57,21 @@ const sketch: Sketch = (p5) => {
 
   const moveDraw = () => {
     // 盤面
-    for (let i = 0; i < H; i++) {
-      for (let j = 0; j < W; j++) {
-        p5.fill(square[i][j] ? 255 : 0)
-        p5.rect(i * width, j * width, width, width)
+    for (let Hi = 0; Hi < H; Hi++) {
+      for (let Wi = 0; Wi < W; Wi++) {
+        p5.fill(square[Hi][Wi] ? 255 : 0)
+        p5.rect(Wi * width, Hi * width, width)
       }
     }
   }
 
   p5.draw = () => {
-    for (let i = 0; i < 100; i++) move()
-    if (p5.frameCount % 10 !== 0) return
+    for (let i = 0; i < 100; i++) {
+      move()
+    }
+    if (p5.frameCount % 10 !== 0) {
+      return
+    }
     moveDraw()
   }
 }

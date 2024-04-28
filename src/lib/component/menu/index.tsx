@@ -10,20 +10,22 @@ const sketch: Sketch = (p5) => {
     ballMover: BallMover
   }> = []
   let canvasBoundary: CanvasBoundary
+  const ballList: Array<Ball> = []
 
   p5.setup = () => {
     p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
     p5.colorMode(p5.HSB)
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 10; i++) {
       const ball = new Ball(
         p5,
         p5.createVector(p5.random(0, p5.width), p5.random(0, p5.height)),
         p5.createVector(p5.random(-3, 3), p5.random(-3, 3)),
         { h: p5.random(0, 360), s: p5.random(20, 100), b: p5.random(90, 100) },
-        p5.random(20, 150),
+        100,
       )
-      const ballMover = new BallMover(ball)
+      ballList.push(ball)
+      const ballMover = new BallMover(ball, ballList)
       balls.push({ ball, ballMover })
     }
 

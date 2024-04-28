@@ -2,26 +2,32 @@ import { NextReactP5Wrapper } from '@p5-wrapper/next'
 import { type Sketch } from '@p5-wrapper/react'
 
 const sketch: Sketch = (p5) => {
-  const linkList: { text: string; link: string }[] = [
-    { text: 'hello', link: 'code/hello' },
-    { text: 'ant', link: 'code/ant' },
-    { text: 'box', link: 'code/box' },
-    { text: 'circle-ball', link: 'code/circle-ball' },
-    { text: 'circle-line', link: 'code/circle-line' },
-    { text: 'fall-kanji', link: 'code/fall-kanji' },
-    { text: 'grid-text', link: 'code/grid-text' },
-    { text: 'like-reversi', link: 'code/like-reversi' },
-    { text: 'random-ball', link: 'code/random-ball' },
-    { text: 'swirl', link: 'code/swirl' },
-    { text: 'trigonometry', link: 'code/trigonometry' },
-    { text: 'wave/sine-curve', link: 'code/wave/sine-curve' },
-    { text: 'wave/sine-curve2', link: 'code/wave/sine-curve2' },
-  ]
+  // const linkList: { text: string; link: string }[] = [
+  //   { text: 'hello', link: 'code/hello' },
+  //   { text: 'ant', link: 'code/ant' },
+  //   { text: 'box', link: 'code/box' },
+  //   { text: 'circle-ball', link: 'code/circle-ball' },
+  //   { text: 'circle-line', link: 'code/circle-line' },
+  //   { text: 'fall-kanji', link: 'code/fall-kanji' },
+  //   { text: 'grid-text', link: 'code/grid-text' },
+  //   { text: 'like-reversi', link: 'code/like-reversi' },
+  //   { text: 'random-ball', link: 'code/random-ball' },
+  //   { text: 'swirl', link: 'code/swirl' },
+  //   { text: 'trigonometry', link: 'code/trigonometry' },
+  //   { text: 'wave/sine-curve', link: 'code/wave/sine-curve' },
+  //   { text: 'wave/sine-curve2', link: 'code/wave/sine-curve2' },
+  // ]
+
+  // テキスト
+  let margin = 30 // マージン
+  let row = 1
+  const lineHeight = 40 // 行の高さ
+  const linkAreaHeight = lineHeight - 10
 
   p5.setup = () => {
     p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
     p5.colorMode(p5.HSB)
-    p5.frameRate(4)
+    p5.frameRate(1)
   }
 
   p5.mousePressed = (e) => {
@@ -43,28 +49,43 @@ const sketch: Sketch = (p5) => {
       p5.ellipse(x, y, diameter, diameter) // 円を描画
     }
 
-    // テキスト
-    let margin = 30 // マージン
-    let lineHeight = 40 // 行の高さ
-
-    for (let i = 0; i < linkList.length; i++) {
-      const { text, link } = linkList[i]
-
-      let x = margin
-      let y = margin + i * lineHeight // 行ごとにY座標を計算
-
-      p5.fill(0)
-      p5.text(text, x, y) // テキストを表示
-      p5.textSize(20)
-
-      // リンクとしてクリック領域を追加
-      let textWidth = p5.textWidth(text)
-      let linkArea = p5.createButton('')
-      linkArea.position(x, y - 14)
-      linkArea.size(textWidth + 20, lineHeight - 10)
-      linkArea.style('background-color', 'transparent')
-      linkArea.mousePressed(() => window.open(link)) // クリックでリンク先を開く
-    }
+    // console.clear()
+    // for (let i = 0; i < linkList.length; i++) {
+    //   p5.fill(0)
+    //   p5.textSize(20)
+    //
+    //   if (i === 0) {
+    //     margin = 30
+    //     row = 1
+    //   }
+    //   const { text, link } = linkList[i]
+    //
+    //   // リンクとしてクリック領域を追加
+    //   const textWidth = p5.textWidth(text)
+    //
+    //   if (i > 0) {
+    //     if (margin + textWidth < p5.width) {
+    //       margin += textWidth * 1.2
+    //       console.log(text, 'margin', margin, textWidth / text.length)
+    //     } else {
+    //       margin = 30
+    //       row += 1
+    //     }
+    //   }
+    //
+    //   let x = margin
+    //   let y = row * lineHeight // 行ごとにY座標を計算
+    //
+    //   p5.text(text, x, y) // テキストを表示
+    //
+    //   const linkAreaWidth = textWidth + 20
+    //   const linkArea = p5.createButton('')
+    //
+    //   linkArea.position(x, y - 14)
+    //   linkArea.size(linkAreaWidth, linkAreaHeight)
+    //   linkArea.style('background-color', 'transparent')
+    //   linkArea.mousePressed(() => window.open(link)) // クリックでリンク先を開く
+    // }
   }
 }
 

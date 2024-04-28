@@ -1,21 +1,29 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
+    "lib": ["dom", "dom.iterable", "esnext"], //* 使用する標準ライブラリを指定します。 DOM API、繰り返しのサポートなどを含みます。
+    "allowJs": true, //* JavaScriptファイルのコンパイルを許可します。
+    "strict": true, //* すべての厳密な型チェックを有効にします。より安全なコードのために。
+    "noEmit": true, //* TypeScriptのコンパイル結果のJavaScriptファイルを生成しません。
+    "moduleResolution": "bundler", //* Webpack、Rollupなどのバンドラに依存してモジュールを解決します。
+    "resolveJsonModule": true, //* JSON ファイルをモジュール化してインポートできるようにします。
+    "jsx": "preserve", //* JSXをJavaScriptにコンパイルせず、そのまま保持します。Reactなどを使用する場合に必要。
+    "incremental": true, //* コンパイルを高速化するために以前のコンパイルの結果を再利用します。
+    "module": "ESNext", //* ESモジュール（ES6以降）の出力形式を使用します。
+    "allowImportingTsExtensions": true, //* .tsと.tsxの拡張子付きでモジュールをインポートできるようにします。
+    "allowUnusedLabels": false, //* 使用されないラベルエラーを出力します。
+    "allowUnreachableCode": false, //* 到達不能なコードエラーを出力します。
+    "noUnusedLocals": true, //* 使用されないローカル変数に関する警告を出力します。
+    "noUnusedParameters": true, //* 使用されない関数パラメーターに関する警告を出力します。
+    "isolatedModules": true, //* TypeScriptファイルをstand-aloneモジュールとして扱います。誤った型解釈を防ぎます。
+    "checkJs": true, //* JavaScriptファイルに対して型チェックを行います。
+    "esModuleInterop": true, //* CommonJSモジュールとの相互運用性を向上させます。
+    "skipLibCheck": true, //* ビルドイン型定義のチェックをスキップします （パフォーマンス向上のため）。
+    "useDefineForClassFields": true, //* 標準の class fields構文を使用します。
+    "forceConsistentCasingInFileNames": true, //* ファイル名の大文字・小文字の一貫性を強制します。
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"] //* "@/"から始まる名前空間パス用の解決エイリアスを設定します。
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"], //* コンパイルに含めるファイルを指定します。
+  "exclude": ["node_modules"] //* コンパイルから除外するファイルを指定します。
 }

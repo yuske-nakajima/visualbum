@@ -7,9 +7,9 @@ const sketch: Sketch = (p5) => {
   let locationX: number
   let locationY: number
   let velocityX: number
-  let velocityY: number
+  // let velocityY: number
   let accelX: number
-  let accelY: number
+  // let accelY: number
 
   p5.setup = () => {
     // p5.frameRate(10) // 1秒にn回drawを実行する
@@ -20,9 +20,9 @@ const sketch: Sketch = (p5) => {
     locationX = p5.width / 2
     locationY = p5.height / 2
     velocityX = 5
-    velocityY = 5
+    // velocityY = 5
     accelX = 1
-    accelY = 0.1
+    // accelY = 0.1
   }
 
   p5.draw = () => {

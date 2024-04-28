@@ -5,7 +5,7 @@ import { Bodies, Body, Engine, Runner, World } from 'matter-js'
 
 // 厚みという変数
 const thickness = 200
-const sizes = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+// const sizes = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
 // const removeBodies = (predicate: (b: Matter.Body) => boolean) => {
 //   //remove from world and mark dead in our proxies

@@ -107,12 +107,12 @@ export const PAGE_INFO_LIST: PageInfo[] = [
     href: '/code/udemy-practice/section3/39',
   },
   {
-    title: 'udemy-practice/section3/mouse-clicked.tsx',
-    href: '/code/udemy-practice/section3/mouse-clicked.tsx',
+    title: 'udemy-practice/section3/mouse-clicked',
+    href: '/code/udemy-practice/section3/mouse-clicked',
   },
   {
-    title: 'udemy-practice/section3/mouse-dragged.tsx',
-    href: '/code/udemy-practice/section3/mouse-dragged.tsx',
+    title: 'udemy-practice/section3/mouse-dragged',
+    href: '/code/udemy-practice/section3/mouse-dragged',
   },
   {
     title: 'udemy-practice/section4/keyboard-background-change',

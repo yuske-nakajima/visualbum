@@ -142,4 +142,8 @@ export const PAGE_INFO_LIST: PageInfo[] = [
     title: 'udemy-practice/section5/attractor4',
     href: '/code/udemy-practice/section5/attractor4',
   },
+  {
+    title: 'midi/01',
+    href: '/code/midi/01',
+  },
 ]

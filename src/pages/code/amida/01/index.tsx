@@ -32,9 +32,10 @@ const sketch: Sketch = (p5) => {
   const yNum: number = 8
   const size: Vector = p5.createVector(xNum + 2, yNum * 2 + (2 + 1))
   const start: number = 3
-  const goal: number = 1
+  const goal: number = 3
   const kuji: Array<Array<boolean>> = []
-  const yArray: Array<number> = '3 1 4 2 2 4 1 3'
+  let displayKuji: Array<Array<boolean>> = []
+  const yArray: Array<number> = '2 1 4 2 3 1 3 2'
     .split(' ')
     .map((item) => parseInt(item))
 
@@ -52,19 +53,6 @@ const sketch: Sketch = (p5) => {
   let last: Vector = p5.createVector(-1, -1)
 
   const displayAmida = () => {
-    // あみだくじ初期化
-    for (let y = 0; y < size.y; y++) {
-      kuji.push([])
-      for (let x = 0; x < size.x; x++) {
-        kuji[y].push(false)
-      }
-    }
-    for (let y = 2; y < size.y - 1; y += 2) {
-      const insertRow: number = yArray[p5.floor(y / 2) - 1]
-      kuji[y][insertRow] = true
-      kuji[y][insertRow + 1] = true
-    }
-
     // 縦線
     p5.push()
     p5.strokeWeight(4)
@@ -100,6 +88,36 @@ const sketch: Sketch = (p5) => {
     count += 1
   }
 
+  const displayResult = (k: Array<Array<boolean>>) => {
+    const amidaWidth: number = maxWidth / (xNum - 1)
+    const amidaHeight: number = maxHeight / (size.y - 1)
+    let xPos: number = start
+
+    // 結果表示
+    p5.push()
+    p5.strokeWeight(4)
+    p5.stroke(130, 100, 100)
+    p5.noFill()
+    p5.beginShape()
+    for (let y = 0; y < k.length; y++) {
+      const yPos: number = 100 + y * amidaHeight
+
+      p5.vertex(100 + (xPos - 1) * amidaWidth, yPos)
+      if (k[y][xPos]) {
+        if (k[y][xPos + 1]) {
+          // 右に行けるか確認
+          xPos += 1 // 右に移動
+        } else {
+          // 左に行けるか確認（右に行けなければ必然的に左となる）
+          xPos -= 1 // 左に移動
+        }
+      }
+      p5.vertex(100 + (xPos - 1) * amidaWidth, yPos)
+    }
+    p5.endShape()
+    p5.pop()
+  }
+
   const displayAddedLine = (x: number, y: number) => {
     p5.push()
     p5.strokeWeight(8)
@@ -117,15 +135,26 @@ const sketch: Sketch = (p5) => {
   p5.setup = () => {
     p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
     p5.colorMode(p5.HSB)
-    p5.frameRate(4)
+    p5.frameRate(8)
 
     maxWidth = p5.width - 200
     maxHeight = p5.height - 200
+
+    // あみだくじ初期化
+    for (let y = 0; y < size.y; y++) {
+      kuji.push([])
+      for (let x = 0; x < size.x; x++) {
+        kuji[y].push(false)
+      }
+    }
+    for (let y = 2; y < size.y - 1; y += 2) {
+      const insertRow: number = yArray[p5.floor(y / 2) - 1]
+      kuji[y][insertRow] = true
+      kuji[y][insertRow + 1] = true
+    }
   }
 
   p5.draw = () => {
-    p5.background(180, 20, 100)
-    displayAmida()
     // 判定
     // 初期状態のあみだくじで計算
     if (p5.frameCount === 1) {
@@ -133,6 +162,7 @@ const sketch: Sketch = (p5) => {
       if (xPos == goal) {
         result = 'OK'
         isFinished = true
+        displayKuji = kuji
       }
     }
 
@@ -148,11 +178,16 @@ const sketch: Sketch = (p5) => {
         kuji[y][x + 1] = true
         addedLine = { x: x - 1, y }
 
+        displayKuji = kuji
+          .copyWithin(0, 0, kuji.length)
+          .map((item) => item.slice(0))
+
         // 現在位置を計算
         const xPos = calcPoint(start, kuji)
 
         if (xPos == goal) {
           last = p5.createVector(x, p5.floor(y / 2))
+          console.log('last: ', last)
           result = 'OK'
           isFinished = true
         } else {
@@ -167,8 +202,20 @@ const sketch: Sketch = (p5) => {
       }
     }
 
-    if (addedLine && !isFinished) {
+    // 描画
+    p5.background(180, 20, 100)
+    displayAmida()
+
+    if (addedLine) {
       displayAddedLine(addedLine.x, addedLine.y)
+    }
+
+    if (displayKuji.length) {
+      displayResult(displayKuji)
+    }
+
+    if (isFinished) {
+      p5.noLoop()
     }
     // 判定
   }

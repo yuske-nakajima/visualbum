@@ -32,7 +32,7 @@ const sketch: Sketch = (p5) => {
   const yNum: number = 8
   const size: Vector = p5.createVector(xNum + 2, yNum * 2 + (2 + 1))
   const start: number = 3
-  const goal: number = 3
+  const goal: number = 4
   const kuji: Array<Array<boolean>> = []
   let displayKuji: Array<Array<boolean>> = []
   const yArray: Array<number> = '2 1 4 2 3 1 3 2'
@@ -53,6 +53,18 @@ const sketch: Sketch = (p5) => {
   let last: Vector = p5.createVector(-1, -1)
 
   const displayAmida = () => {
+    // スタート・ゴール
+    const startXPos = (start - 1) * (maxWidth / (xNum - 1)) + 100
+    const goalXPos = (goal - 1) * (maxWidth / (xNum - 1)) + 100
+
+    p5.push()
+    p5.textAlign(p5.CENTER)
+    p5.textSize(24)
+    p5.text('Start', startXPos, 70)
+    p5.text('Goal', goalXPos, 100 + maxHeight + 45)
+    p5.pop()
+    // スタート・ゴール
+
     // 縦線
     p5.push()
     p5.strokeWeight(4)
@@ -83,7 +95,7 @@ const sketch: Sketch = (p5) => {
       90,
       100 + maxHeight + 45,
     )
-    p5.text(`カウント: ${count}`, 90, 100 + maxHeight + 75)
+    // p5.text(`カウント: ${count}`, 90, 100 + maxHeight + 75)
     p5.pop()
     count += 1
   }

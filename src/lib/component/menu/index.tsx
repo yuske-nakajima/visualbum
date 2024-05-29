@@ -2,6 +2,7 @@ import { Ball } from '@/lib/class/ball.ts'
 import { BallMover } from '@/lib/class/ballMover.ts'
 import { CanvasBoundary } from '@/lib/class/canvasBoundary.ts'
 import { PAGE_INFO_LIST } from '@/lib/constants.ts'
+import { PageInfo } from '@/lib/types.ts'
 import { NextReactP5Wrapper } from '@p5-wrapper/next'
 import { type Sketch } from '@p5-wrapper/react'
 import { Element } from 'p5'
@@ -13,8 +14,13 @@ const sketch: Sketch = (p5) => {
   }> = []
   let canvasBoundary: CanvasBoundary
   const linkAreaList: Array<Element> = []
+  let sortedPageInfoList: PageInfo[]
 
   p5.setup = () => {
+    sortedPageInfoList = PAGE_INFO_LIST.sort((a: PageInfo, b: PageInfo) =>
+      a.title < b.title ? -1 : 1,
+    )
+
     p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
     p5.colorMode(p5.HSB)
 
@@ -58,7 +64,7 @@ const sketch: Sketch = (p5) => {
 
     let row = 1
 
-    for (let i = 0; i < PAGE_INFO_LIST.length; i++) {
+    for (let i = 0; i < sortedPageInfoList.length; i++) {
       const pageInfo = PAGE_INFO_LIST[i]
       const linkArea = linkAreaList[i]
 

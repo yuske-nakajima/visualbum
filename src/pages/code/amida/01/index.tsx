@@ -28,16 +28,18 @@ const calcPoint = (xPos: number, kuji: Array<Array<boolean>>): number => {
 }
 
 const sketch: Sketch = (p5) => {
-  const xNum: number = 5
-  const yNum: number = 8
+  const xNum: number = p5.floor(p5.random(3, 5))
+  const yNum: number = p5.floor(p5.random(3, 10))
   const size: Vector = p5.createVector(xNum + 2, yNum * 2 + (2 + 1))
-  const start: number = 3
-  const goal: number = 4
+  const start: number = p5.floor(p5.random(1, xNum))
+  const goal: number = p5.floor(p5.random(1, xNum))
   const kuji: Array<Array<boolean>> = []
   let displayKuji: Array<Array<boolean>> = []
-  const yArray: Array<number> = '2 1 4 2 3 1 3 2'
-    .split(' ')
-    .map((item) => parseInt(item))
+
+  const yArray: Array<number> = []
+  for (let i = 0; i < yNum; i++) {
+    yArray.push(p5.floor(p5.random(1, xNum)))
+  }
 
   let count: number = 0
   let result: string = 'NG'
@@ -60,8 +62,8 @@ const sketch: Sketch = (p5) => {
     p5.push()
     p5.textAlign(p5.CENTER)
     p5.textSize(24)
-    p5.text('Start', startXPos, 70)
-    p5.text('Goal', goalXPos, 100 + maxHeight + 45)
+    p5.text('Start', startXPos, 100 - 30)
+    p5.text('Goal', goalXPos, 100 + maxHeight + 100 - 55)
     p5.pop()
     // スタート・ゴール
 
@@ -93,7 +95,7 @@ const sketch: Sketch = (p5) => {
     p5.text(
       `結果: ${last.x === -1 ? result : `${last.x} ${last.y}`}`,
       90,
-      100 + maxHeight + 45,
+      100 + maxHeight + 100 - 10,
     )
     // p5.text(`カウント: ${count}`, 90, 100 + maxHeight + 75)
     p5.pop()

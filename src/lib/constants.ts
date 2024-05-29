@@ -150,4 +150,8 @@ export const PAGE_INFO_LIST: PageInfo[] = [
     title: 'amida/01',
     href: '/code/amida/01',
   },
+  {
+    title: 'string/abc',
+    href: '/code/string/abc',
+  },
 ]

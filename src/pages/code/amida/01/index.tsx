@@ -4,7 +4,7 @@ import { Vector } from 'p5'
 
 /*
 あみだくじ
-- 余白: 上下左右 100px
+- 余白: 上下左右 padding px
 */
 
 const calcPoint = (xPos: number, kuji: Array<Array<boolean>>): number => {
@@ -35,6 +35,7 @@ const sketch: Sketch = (p5) => {
   const goal: number = p5.floor(p5.random(1, xNum))
   const kuji: Array<Array<boolean>> = []
   let displayKuji: Array<Array<boolean>> = []
+  const padding = 75
 
   const yArray: Array<number> = []
   for (let i = 0; i < yNum; i++) {
@@ -56,14 +57,14 @@ const sketch: Sketch = (p5) => {
 
   const displayAmida = () => {
     // スタート・ゴール
-    const startXPos = (start - 1) * (maxWidth / (xNum - 1)) + 100
-    const goalXPos = (goal - 1) * (maxWidth / (xNum - 1)) + 100
+    const startXPos = (start - 1) * (maxWidth / (xNum - 1)) + padding
+    const goalXPos = (goal - 1) * (maxWidth / (xNum - 1)) + padding
 
     p5.push()
     p5.textAlign(p5.CENTER)
     p5.textSize(24)
-    p5.text('Start', startXPos, 100 - 30)
-    p5.text('Goal', goalXPos, 100 + maxHeight + 100 - 55)
+    p5.text('Start', startXPos, padding - 20)
+    p5.text('Goal', goalXPos, padding + maxHeight + padding - 40)
     p5.pop()
     // スタート・ゴール
 
@@ -71,8 +72,8 @@ const sketch: Sketch = (p5) => {
     p5.push()
     p5.strokeWeight(4)
     for (let x = 0; x < xNum; x++) {
-      const xPos: number = 100 + x * (maxWidth / (xNum - 1))
-      p5.line(xPos, 100, xPos, maxHeight + 100)
+      const xPos: number = padding + x * (maxWidth / (xNum - 1))
+      p5.line(xPos, padding, xPos, maxHeight + padding)
     }
     p5.pop()
     // 縦線
@@ -82,9 +83,9 @@ const sketch: Sketch = (p5) => {
     p5.strokeWeight(4)
     for (let y = 2; y < size.y - 1; y += 2) {
       const rowNum: number = yArray[p5.floor(y / 2) - 1] - 1
-      const xPos1: number = 100 + rowNum * (maxWidth / (xNum - 1))
-      const xPos2: number = 100 + (rowNum + 1) * (maxWidth / (xNum - 1))
-      const yPos: number = 100 + y * (maxHeight / (size.y - 1))
+      const xPos1: number = padding + rowNum * (maxWidth / (xNum - 1))
+      const xPos2: number = padding + (rowNum + 1) * (maxWidth / (xNum - 1))
+      const yPos: number = padding + y * (maxHeight / (size.y - 1))
       p5.line(xPos1, yPos, xPos2, yPos)
     }
     p5.pop()
@@ -94,10 +95,10 @@ const sketch: Sketch = (p5) => {
     p5.textSize(24)
     p5.text(
       `結果: ${last.x === -1 ? result : `${last.x} ${last.y}`}`,
-      90,
-      100 + maxHeight + 100 - 10,
+      10,
+      p5.height - 10,
     )
-    // p5.text(`カウント: ${count}`, 90, 100 + maxHeight + 75)
+    // p5.text(`カウント: ${count}`, 90, padding + maxHeight + 75)
     p5.pop()
     count += 1
   }
@@ -110,13 +111,13 @@ const sketch: Sketch = (p5) => {
     // 結果表示
     p5.push()
     p5.strokeWeight(4)
-    p5.stroke(130, 100, 100)
+    p5.stroke(130, padding, padding)
     p5.noFill()
     p5.beginShape()
     for (let y = 0; y < k.length; y++) {
-      const yPos: number = 100 + y * amidaHeight
+      const yPos: number = padding + y * amidaHeight
 
-      p5.vertex(100 + (xPos - 1) * amidaWidth, yPos)
+      p5.vertex(padding + (xPos - 1) * amidaWidth, yPos)
       if (k[y][xPos]) {
         if (k[y][xPos + 1]) {
           // 右に行けるか確認
@@ -126,7 +127,7 @@ const sketch: Sketch = (p5) => {
           xPos -= 1 // 左に移動
         }
       }
-      p5.vertex(100 + (xPos - 1) * amidaWidth, yPos)
+      p5.vertex(padding + (xPos - 1) * amidaWidth, yPos)
     }
     p5.endShape()
     p5.pop()
@@ -135,11 +136,11 @@ const sketch: Sketch = (p5) => {
   const displayAddedLine = (x: number, y: number) => {
     p5.push()
     p5.strokeWeight(8)
-    p5.stroke(0, 100, 100)
+    p5.stroke(0, padding, padding)
     const rowNum: number = x
-    const xPos1: number = 100 + rowNum * (maxWidth / (xNum - 1))
-    const xPos2: number = 100 + (rowNum + 1) * (maxWidth / (xNum - 1))
-    const yPos: number = 100 + y * (maxHeight / (size.y - 1))
+    const xPos1: number = padding + rowNum * (maxWidth / (xNum - 1))
+    const xPos2: number = padding + (rowNum + 1) * (maxWidth / (xNum - 1))
+    const yPos: number = padding + y * (maxHeight / (size.y - 1))
     p5.line(xPos1, yPos, xPos2, yPos)
     p5.pop()
   }

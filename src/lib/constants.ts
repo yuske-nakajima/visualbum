@@ -154,4 +154,8 @@ export const PAGE_INFO_LIST: PageInfo[] = [
     title: 'string/abc',
     href: '/code/string/abc',
   },
+  {
+    title: 'math/01/01',
+    href: '/code/math/01/01',
+  },
 ]

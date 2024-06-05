@@ -1,3 +1,4 @@
+import { drawBlock } from '@/lib/functions.ts'
 import { calcEuclideanGCD } from '@/lib/math.ts'
 import { NextReactP5Wrapper } from '@p5-wrapper/next'
 import type { Sketch } from '@p5-wrapper/react'
@@ -28,10 +29,8 @@ const sketch: Sketch = (p5) => {
     p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
     p5.colorMode(p5.HSB)
 
-    // x0 = p5.floor(p5.random(1, 20))
-    // x1 = p5.floor(p5.random(x0 + 1, 50))
-    x0 = 9
-    x1 = 38
+    x0 = p5.floor(p5.random(1, 20))
+    x1 = p5.floor(p5.random(x0 + 1, 50))
 
     // x0 > x1 にする
     if (x1 > x0) {
@@ -77,94 +76,73 @@ const sketch: Sketch = (p5) => {
     numB = numA * (x1 / x0)
     wd = numB
     let it = 0
-    let hue = p5.random(0, 360)
-    const randomHue = p5.random(0, 360)
+    let hue = 0
+    const hueIterator = 60
 
-    let isFinished = false
-    while (wd > 0) {
-      hue = (hue + randomHue) % 360
+    while (wd > 0.005) {
+      hue = (hue + hueIterator) % 360
       it += 1
       if (it % 2 === 1) {
         // x方向に
-        let xIt = 0
-        while (position.x + wd <= numA + w && xIt < 100) {
-          p5.push()
-          p5.fill(hue, 40, 100, 0.2)
-          p5.rect(position.x, position.y, wd, wd)
-          p5.pop()
+        while (position.x + wd <= numA + w && wd > 0.005) {
+          drawBlock(p5, () => {
+            p5.fill(hue, 40, 100, 0.2)
+            p5.rect(position.x, position.y, wd, wd)
+          })
 
           position.x += wd
-          xIt += 1
-          console.log('yIt: ', xIt)
-
-          if (xIt > 50) {
-            isFinished = true
-            break
-          }
         }
         wd = numA - (position.x - w)
       } else {
         // y方向に
-        let yIt = 0
-        while (position.y + wd <= numB + h) {
-          p5.push()
-          p5.fill(30, 40, 100, 0.2)
-          p5.rect(position.x, position.y, wd, wd)
-          p5.pop()
+        while (position.y + wd <= numB + h && wd > 0.005) {
+          drawBlock(p5, () => {
+            p5.fill(hue, 40, 100, 0.2)
+            p5.rect(position.x, position.y, wd, wd)
+          })
 
           position.y += wd
-          yIt += 1
-          console.log('yIt: ', yIt)
-
-          if (yIt > 50) {
-            isFinished = true
-            break
-          }
         }
         wd = numB - (position.y - h)
       }
-      if (isFinished) {
-        break
-      }
-      // console.log('描画中 while end', it, wd, position.x, position.y)
     }
   }
 
+  const displayLine = () => {
+    drawBlock(p5, () => {
+      p5.stroke(0, 0, 80)
+      p5.line(0, textPosition.y, p5.width, textPosition.y)
+      p5.line(textPosition.x, 0, textPosition.x, p5.height)
+    })
+  }
+
   p5.draw = () => {
-    // p5.noLoop()
     if (frameCount < oneLoop) {
       // 描画
       if (frameCount % oneFrame === 0) {
-        p5.push()
-        p5.background(100, 10, 100)
-        p5.textSize(textSize)
-        p5.textAlign(p5.LEFT, p5.TOP)
+        drawBlock(p5, () => {
+          p5.background(100, 10, 100)
+          displayLine()
+          p5.textSize(textSize)
+          p5.textAlign(p5.LEFT, p5.TOP)
 
-        if (index === 0) {
-          // 初回のみ背景・ラインを描画
-          p5.push()
-          p5.stroke(0, 0, 80)
-          p5.line(0, textPosition.y, p5.width, textPosition.y)
-          p5.line(textPosition.x, 0, textPosition.x, p5.height)
-          p5.pop()
-
-          for (let i = 0; i < 4; i++) {
-            displayTextListItem(i)
+          if (index === 0) {
+            for (let i = 0; i < 4; i++) {
+              displayTextListItem(i)
+            }
+            index += 4
+          } else if (index === 4 + progressMessagesLength) {
+            for (let i = 0; i < index + 3; i++) {
+              displayTextListItem(i)
+            }
+            index += 4
+          } else {
+            for (let i = 0; i <= index; i++) {
+              displayTextListItem(i)
+            }
+            index += 1
           }
-          index += 4
-        } else if (index === 4 + progressMessagesLength) {
-          for (let i = 0; i < index + 3; i++) {
-            displayTextListItem(i)
-          }
-          index += 4
-        } else {
-          for (let i = 0; i <= index; i++) {
-            displayTextListItem(i)
-          }
-          index += 1
-        }
-
-        p5.pop()
+        })
       }
     } else {
       displayRect()

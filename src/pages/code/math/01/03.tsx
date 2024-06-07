@@ -39,7 +39,7 @@ const sketch: Sketch = (p5) => {
     p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
     p5.colorMode(p5.HSB)
 
-    x0 = p5.floor(p5.random(1, 30))
+    x0 = p5.floor(p5.random(1, 50))
     x1 = p5.floor(p5.random(x0 + 1, 50))
     // x0 = 10
     // x1 = 7
@@ -62,6 +62,11 @@ const sketch: Sketch = (p5) => {
     h = p5.height / 4
 
     rectWidth = w * 6
+    // rectWidth が p5.height - h より大きい場合
+    if (rectWidth > p5.height - h) {
+      rectWidth = p5.height - (h + 20)
+    }
+
     rectHeight = rectWidth * (x1 / x0)
 
     w += w / 2

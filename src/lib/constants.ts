@@ -162,4 +162,8 @@ export const PAGE_INFO_LIST: PageInfo[] = [
     title: 'math/01/02',
     href: '/code/math/01/02',
   },
+  {
+    title: 'math/01/03',
+    href: '/code/math/01/03',
+  },
 ]

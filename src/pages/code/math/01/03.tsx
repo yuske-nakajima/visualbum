@@ -202,7 +202,7 @@ const sketch: Sketch = (p5) => {
           if (index < rectList.length) {
             drawBlock(p5, () => {
               for (let i = 0; i <= index; i++) {
-                p5.fill(rectList[i].hue, 50, 100, 0.2)
+                p5.fill(rectList[i].hue, 50, 100)
                 p5.strokeWeight(2)
                 p5.rect(
                   rectList[i].x,
@@ -217,7 +217,13 @@ const sketch: Sketch = (p5) => {
           if (index >= rectList.length) {
             drawBlock(p5, () => {
               for (let i = 0; i < rectList.length; i++) {
-                p5.fill(rectList[i].hue, 50, 100, 0.2)
+                if (i === rectList.length - 1) {
+                  if (index % 2 === 0) {
+                    p5.fill(0, 0, 40)
+                  }
+                } else {
+                  p5.fill(rectList[i].hue, 50, 100)
+                }
                 p5.strokeWeight(2)
                 p5.rect(
                   rectList[i].x,

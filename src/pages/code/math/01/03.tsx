@@ -35,6 +35,8 @@ const sketch: Sketch = (p5) => {
   }
   const rectList: Rect[] = []
 
+  let isFinished = false
+
   p5.setup = () => {
     p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
     p5.colorMode(p5.HSB)
@@ -74,7 +76,7 @@ const sketch: Sketch = (p5) => {
     calcRectList()
 
     // 描画回数
-    const size = rectList.length
+    const size = 10 + rectList.length
     oneLoop = size * oneFrame
   }
 
@@ -133,6 +135,56 @@ const sketch: Sketch = (p5) => {
     })
   }
 
+  const displayInfo = () => {
+    drawBlock(p5, () => {
+      p5.textSize(textSize)
+      p5.textAlign(p5.CENTER, p5.TOP)
+
+      p5.text(x0, w + rectWidth / 2, h - textSize - 20)
+      p5.text(x1, w - textSize - 20, h + rectHeight / 2 - textSize / 2)
+
+      p5.noFill()
+      p5.strokeWeight(2)
+      p5.rect(w, h, rectWidth, rectHeight)
+    })
+
+    // マスを描画
+    drawBlock(p5, () => {
+      p5.stroke(0, 0, 0, 0.1)
+      p5.textSize(10)
+      p5.textAlign(p5.CENTER, p5.TOP)
+
+      const oneWidth = rectWidth / x0
+      const oneHeight = rectHeight / x1
+      for (let i = 0; i <= x0; i++) {
+        drawBlock(p5, () => {
+          if (i % 5 === 0) {
+            p5.strokeWeight(1.5)
+            p5.fill(0, 0.2)
+            p5.text(i, w + i * oneWidth, h - 12)
+          } else {
+            p5.strokeWeight(0.5)
+          }
+          p5.line(w + i * oneWidth, h, w + i * oneWidth, h + rectHeight)
+        })
+      }
+      for (let i = 0; i <= x1; i++) {
+        drawBlock(p5, () => {
+          if (i % 5 === 0) {
+            p5.strokeWeight(1.5)
+            if (i !== 0) {
+              p5.fill(0, 0.2)
+              p5.text(i, w - 12, h + i * oneHeight - 6)
+            }
+          } else {
+            p5.strokeWeight(0.5)
+          }
+          p5.line(w, h + i * oneHeight, w + rectWidth, h + i * oneHeight)
+        })
+      }
+    })
+  }
+
   p5.draw = () => {
     if (frameCount < oneLoop) {
       // 描画
@@ -142,77 +194,52 @@ const sketch: Sketch = (p5) => {
           displayLine()
 
           displayTextListItem(0)
+          if (isFinished) {
+            displayTextListItem(1)
+          }
 
           // 四角を描画
-          drawBlock(p5, () => {
-            for (let i = 0; i <= index; i++) {
-              p5.fill(rectList[i].hue, 50, 100, 0.2)
-              p5.strokeWeight(2)
-              p5.rect(
-                rectList[i].x,
-                rectList[i].y,
-                rectList[i].wd,
-                rectList[i].wd,
-              )
-            }
-          })
+          if (index < rectList.length) {
+            drawBlock(p5, () => {
+              for (let i = 0; i <= index; i++) {
+                p5.fill(rectList[i].hue, 50, 100, 0.2)
+                p5.strokeWeight(2)
+                p5.rect(
+                  rectList[i].x,
+                  rectList[i].y,
+                  rectList[i].wd,
+                  rectList[i].wd,
+                )
+              }
+            })
+          }
 
-          drawBlock(p5, () => {
-            p5.textSize(textSize)
-            p5.textAlign(p5.CENTER, p5.TOP)
+          if (index >= rectList.length) {
+            drawBlock(p5, () => {
+              for (let i = 0; i < rectList.length; i++) {
+                p5.fill(rectList[i].hue, 50, 100, 0.2)
+                p5.strokeWeight(2)
+                p5.rect(
+                  rectList[i].x,
+                  rectList[i].y,
+                  rectList[i].wd,
+                  rectList[i].wd,
+                )
+              }
+            })
+          }
 
-            p5.text(x0, w + rectWidth / 2, h - textSize - 20)
-            p5.text(x1, w - textSize - 20, h + rectHeight / 2 - textSize / 2)
-
-            p5.noFill()
-            p5.strokeWeight(2)
-            p5.rect(w, h, rectWidth, rectHeight)
-          })
-
-          // マスを描画
-          drawBlock(p5, () => {
-            p5.stroke(0, 0, 0, 0.1)
-            p5.textSize(10)
-            p5.textAlign(p5.CENTER, p5.TOP)
-
-            const oneWidth = rectWidth / x0
-            const oneHeight = rectHeight / x1
-            for (let i = 0; i <= x0; i++) {
-              drawBlock(p5, () => {
-                if (i % 5 === 0) {
-                  p5.strokeWeight(1.5)
-                  p5.fill(0, 0.2)
-                  p5.text(i, w + i * oneWidth, h - 12)
-                } else {
-                  p5.strokeWeight(0.5)
-                }
-                p5.line(w + i * oneWidth, h, w + i * oneWidth, h + rectHeight)
-              })
-            }
-            for (let i = 0; i <= x1; i++) {
-              drawBlock(p5, () => {
-                if (i % 5 === 0) {
-                  p5.strokeWeight(1.5)
-                  if (i !== 0) {
-                    p5.fill(0, 0.2)
-                    p5.text(i, w - 12, h + i * oneHeight - 6)
-                  }
-                } else {
-                  p5.strokeWeight(0.5)
-                }
-                p5.line(w, h + i * oneHeight, w + rectWidth, h + i * oneHeight)
-              })
-            }
-          })
+          displayInfo()
 
           index += 1
         })
       }
     } else {
       displayTextListItem(1)
+      isFinished = true
       frameCount = 0
       index = 0
-      p5.noLoop()
+      p5.redraw()
     }
 
     frameCount += 1

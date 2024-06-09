@@ -256,6 +256,7 @@ const sketch: Sketch = (p5) => {
 
   const draw = () => {
     p5.background(HueMap.background.h, HueMap.background.s, HueMap.background.b)
+    drawGrid()
     drawBar()
 
     const pos = index % result.length
@@ -264,7 +265,6 @@ const sketch: Sketch = (p5) => {
     drawHiLo('hi', hi)
     drawHiLo('lo', lo)
 
-    drawGrid()
     drawGround()
     drawSearchValue()
     drawNum()

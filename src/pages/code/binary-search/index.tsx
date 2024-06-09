@@ -15,9 +15,9 @@ type valueType =
 type ColorType = ResultType | valueType
 
 const HueMap: Record<ColorType, HSB> = {
-  value: { h: 0, s: 60, b: 100 },
+  value: { h: 0, s: 40, b: 100 },
   search: { h: 0, s: 0, b: 20 },
-  hi: { h: 30, s: 80, b: 95 },
+  hi: { h: 40, s: 90, b: 95 },
   lo: { h: 210, s: 100, b: 100 },
   mid: { h: 310, s: 100, b: 100 },
   ground: { h: 0, s: 0, b: 20 },
@@ -63,7 +63,6 @@ const binarySearch = (array: number[], searchValue: number): Result[] => {
 
 const sketch: Sketch = (p5) => {
   let ground: Vector
-  // const array: number[] = []
   let arraySize: number
   let gridSize: number
   let margin: number
@@ -71,9 +70,11 @@ const sketch: Sketch = (p5) => {
   let searchValue: number
 
   let index = 0
-  let result: Result[] = []
+  let result: Result[]
   let indexTextSize: number
   let resultTextSize: number
+
+  let isStop = true
 
   p5.setup = () => {
     p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
@@ -150,14 +151,15 @@ const sketch: Sketch = (p5) => {
     for (let i = 1; i <= arraySize; i++) {
       drawBlock(p5, () => {
         p5.strokeWeight(2)
+        p5.stroke(0, 0, 0, 0.1)
         if (
           result[index % result.length].lo <= i - 1 &&
           i - 1 <= result[index % result.length].hi
         ) {
           p5.fill(HueMap.value.h, HueMap.value.s, HueMap.value.b)
         } else {
-          p5.stroke(0, 0, 0, 0.1)
-          p5.fill(HueMap.value.h, 20, 100)
+          p5.noStroke()
+          p5.fill(HueMap.value.h, 100, 100, 0.05)
         }
         p5.rect(
           (i + margin) * gridSize,
@@ -195,6 +197,7 @@ const sketch: Sketch = (p5) => {
 
   const drawHiLo = (type: ResultType, indexValue: number) => {
     drawBlock(p5, () => {
+      p5.noStroke()
       p5.fill(HueMap[type].h, HueMap[type].s, HueMap[type].b)
       let xPos: number = 0
       if (type === 'hi') {
@@ -204,9 +207,9 @@ const sketch: Sketch = (p5) => {
       }
       p5.rect(
         (indexValue + 1 + margin) * gridSize + xPos,
-        ground.y - 22 * gridSize,
+        0,
         gridSize / 3,
-        22 * gridSize,
+        p5.height,
       )
       // テキストを描画
       drawBlock(p5, () => {
@@ -214,23 +217,59 @@ const sketch: Sketch = (p5) => {
         p5.fill(HueMap[type].h, HueMap[type].s, HueMap[type].b)
         p5.textSize(resultTextSize)
         if (type === 'hi') {
-          p5.text(
-            'hi',
-            (indexValue + 3 + margin) * gridSize,
-            ground.y - 22 * gridSize,
-          )
+          drawBlock(p5, () => {
+            p5.stroke(HueMap[type].h, HueMap[type].s, HueMap[type].b)
+            p5.fill(0, 0, 100)
+            p5.rect(
+              (indexValue + 2 + margin) * gridSize,
+              ground.y - 27 * gridSize,
+              gridSize * 2,
+            )
+          })
+          drawBlock(p5, () => {
+            p5.fill(HueMap[type].h, HueMap[type].s, HueMap[type].b)
+            p5.text(
+              'hi',
+              (indexValue + 3 + margin) * gridSize,
+              ground.y - 26 * gridSize,
+            )
+          })
         } else if (type === 'mid') {
-          p5.text(
-            'mid',
-            (indexValue + 1 + margin) * gridSize + gridSize / 2,
-            ground.y - 22 * gridSize - resultTextSize,
-          )
+          drawBlock(p5, () => {
+            p5.stroke(HueMap[type].h, HueMap[type].s, HueMap[type].b)
+            p5.fill(0, 0, 100)
+            p5.rect(
+              (indexValue + 1 + margin) * gridSize - gridSize / 2,
+              ground.y - 22 * gridSize - resultTextSize * 2,
+              gridSize * 2,
+            )
+          })
+          drawBlock(p5, () => {
+            p5.fill(HueMap[type].h, HueMap[type].s, HueMap[type].b)
+            p5.text(
+              'mid',
+              (indexValue + 1 + margin) * gridSize + gridSize / 2,
+              ground.y - 22 * gridSize - resultTextSize,
+            )
+          })
         } else {
-          p5.text(
-            'lo',
-            (indexValue + margin) * gridSize,
-            ground.y - 22 * gridSize,
-          )
+          drawBlock(p5, () => {
+            p5.stroke(HueMap[type].h, HueMap[type].s, HueMap[type].b)
+            p5.fill(0, 0, 100)
+            p5.rect(
+              (indexValue - 1 + margin) * gridSize,
+              ground.y - 21 * gridSize,
+              gridSize * 2,
+            )
+          })
+          drawBlock(p5, () => {
+            p5.fill(HueMap[type].h, HueMap[type].s, HueMap[type].b)
+            p5.text(
+              'lo',
+              (indexValue + margin) * gridSize,
+              ground.y - 20 * gridSize,
+            )
+          })
         }
       })
     })
@@ -258,20 +297,46 @@ const sketch: Sketch = (p5) => {
     p5.background(HueMap.background.h, HueMap.background.s, HueMap.background.b)
     drawGrid()
     drawBar()
+    drawSearchValue()
 
     const pos = index % result.length
     const { hi, mid, lo } = result[pos]
-    drawHiLo('mid', mid)
     drawHiLo('hi', hi)
     drawHiLo('lo', lo)
+    drawHiLo('mid', mid)
 
     drawGround()
-    drawSearchValue()
     drawNum()
   }
 
+  const drawStop = () => {
+    draw()
+    p5.background(0, 0, 0, 0.5)
+    // 再生アイコンを真ん中に描画
+    drawBlock(p5, () => {
+      p5.fill(0, 0, 100)
+      p5.noStroke()
+      p5.beginShape()
+      p5.vertex(p5.width / 2 - 10, p5.height / 2 - 10)
+      p5.vertex(p5.width / 2 - 10, p5.height / 2 + 10)
+      p5.vertex(p5.width / 2 + 10, p5.height / 2)
+      p5.endShape(p5.CLOSE)
+    })
+  }
+
+  p5.mouseClicked = () => {
+    isStop = !isStop
+    if (!isStop) {
+      p5.loop()
+    }
+  }
+
   p5.draw = () => {
-    if (p5.frameCount === 1 || p5.frameCount % 60 === 0) {
+    if (isStop) {
+      drawStop()
+      p5.noLoop()
+    }
+    if (p5.frameCount % 60 === 0) {
       draw()
       index += 1
     }

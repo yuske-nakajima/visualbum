@@ -300,7 +300,10 @@ const sketch: Sketch = (p5) => {
     if (!isFirstView) {
       drawHiLo('hi', hi)
       drawHiLo('lo', lo)
-      drawHiLo('mid', mid)
+
+      if (index % result.length > 0) {
+        drawHiLo('mid', mid)
+      }
     }
 
     drawGround()

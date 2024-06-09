@@ -193,7 +193,7 @@ const sketch: Sketch = (p5) => {
   const drawHiLo = (type: ResultType, indexValue: number) => {
     drawBlock(p5, () => {
       p5.noStroke()
-      p5.fill(HueMap[type].h, HueMap[type].s, HueMap[type].b)
+      p5.fill(HueMap[type].h, HueMap[type].s, HueMap[type].b, 0.7)
       let xPos: number = 0
       if (type === 'hi') {
         xPos = (gridSize / 3) * 2
@@ -305,7 +305,6 @@ const sketch: Sketch = (p5) => {
         drawHiLo('mid', mid)
       }
     }
-
     drawGround()
     drawNum()
   }

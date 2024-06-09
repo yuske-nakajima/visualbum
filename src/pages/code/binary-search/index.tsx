@@ -52,11 +52,8 @@ const binarySearch = (array: number[], searchValue: number): Result[] => {
     } else {
       lo = mid + 1
     }
-
-    // result.push({ hi, mid, lo, n: num })
   }
   result.push({ hi, mid: hi, lo, n: num })
-  console.log(`${num}回目で完了`)
 
   return result
 }
@@ -84,11 +81,9 @@ const sketch: Sketch = (p5) => {
 
     ground = p5.createVector(0, (p5.height / 8) * 7)
     arraySize = p5.min(p5.floor((p5.width / gridSize) * 0.75), 20)
-    // margin = p5.floor(((p5.width / gridSize) * 0.25) / 2)
     margin = p5.floor((p5.width / gridSize - arraySize) / 2)
 
     searchValue = p5.floor(p5.random(1, arraySize + 1))
-    // searchValue = 20
 
     const array = []
     for (let i = 1; i <= arraySize; i++) {
@@ -293,7 +288,7 @@ const sketch: Sketch = (p5) => {
     })
   }
 
-  const draw = () => {
+  const draw = (isFirstView: boolean = false) => {
     p5.background(HueMap.background.h, HueMap.background.s, HueMap.background.b)
     drawGrid()
     drawBar()
@@ -301,16 +296,19 @@ const sketch: Sketch = (p5) => {
 
     const pos = index % result.length
     const { hi, mid, lo } = result[pos]
-    drawHiLo('hi', hi)
-    drawHiLo('lo', lo)
-    drawHiLo('mid', mid)
+
+    if (!isFirstView) {
+      drawHiLo('hi', hi)
+      drawHiLo('lo', lo)
+      drawHiLo('mid', mid)
+    }
 
     drawGround()
     drawNum()
   }
 
   const drawStop = () => {
-    draw()
+    draw(true)
     p5.background(0, 0, 0, 0.5)
     // 再生アイコンを真ん中に描画
     drawBlock(p5, () => {

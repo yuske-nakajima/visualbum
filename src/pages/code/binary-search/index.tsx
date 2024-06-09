@@ -4,7 +4,7 @@ import { NextReactP5Wrapper } from '@p5-wrapper/next'
 import { Sketch } from '@p5-wrapper/react'
 import { Vector } from 'p5'
 
-type ResultType = 'hi' | 'mid' | 'lo'
+type ResultType = 'high' | 'mid' | 'low'
 type valueType =
   | 'value'
   | 'search'
@@ -17,8 +17,8 @@ type ColorType = ResultType | valueType
 const HueMap: Record<ColorType, HSB> = {
   value: { h: 0, s: 40, b: 100 },
   search: { h: 0, s: 0, b: 20 },
-  hi: { h: 40, s: 90, b: 95 },
-  lo: { h: 210, s: 100, b: 100 },
+  high: { h: 40, s: 90, b: 95 },
+  low: { h: 210, s: 100, b: 100 },
   mid: { h: 310, s: 100, b: 100 },
   ground: { h: 0, s: 0, b: 20 },
   index: { h: 0, s: 0, b: 100 },
@@ -27,9 +27,9 @@ const HueMap: Record<ColorType, HSB> = {
 }
 
 type Result = {
-  hi: number
+  high: number
   mid: number
-  lo: number
+  low: number
   n: number
 }
 
@@ -41,10 +41,10 @@ const binarySearch = (array: number[], searchValue: number): Result[] => {
   let mid = 0
 
   let num = 0
-  result.push({ hi, mid: Math.floor((lo + hi) / 2), lo, n: num })
+  result.push({ high: hi, mid: Math.floor((lo + hi) / 2), low: lo, n: num })
   while (lo < hi) {
     mid = Math.floor((hi + lo) / 2)
-    result.push({ hi, mid, lo, n: num })
+    result.push({ high: hi, mid, low: lo, n: num })
     num += 1
 
     if (array[mid] >= searchValue) {
@@ -53,7 +53,7 @@ const binarySearch = (array: number[], searchValue: number): Result[] => {
       lo = mid + 1
     }
   }
-  result.push({ hi, mid: hi, lo, n: num })
+  result.push({ high: hi, mid: hi, low: lo, n: num })
 
   return result
 }
@@ -92,7 +92,7 @@ const sketch: Sketch = (p5) => {
     result = binarySearch(array, searchValue)
 
     indexTextSize = gridSize / 2
-    resultTextSize = gridSize
+    resultTextSize = gridSize / 1.75
   }
 
   const drawGround = () => {
@@ -105,8 +105,8 @@ const sketch: Sketch = (p5) => {
       // index を描画
       drawBlock(p5, () => {
         if (
-          result[index % result.length].lo <= i - 1 &&
-          i - 1 <= result[index % result.length].hi
+          result[index % result.length].low <= i - 1 &&
+          i - 1 <= result[index % result.length].high
         ) {
           p5.fill(HueMap.index.h, HueMap.index.s, HueMap.index.b)
         } else {
@@ -148,8 +148,8 @@ const sketch: Sketch = (p5) => {
         p5.strokeWeight(2)
         p5.stroke(0, 0, 0, 0.1)
         if (
-          result[index % result.length].lo <= i - 1 &&
-          i - 1 <= result[index % result.length].hi
+          result[index % result.length].low <= i - 1 &&
+          i - 1 <= result[index % result.length].high
         ) {
           p5.fill(HueMap.value.h, HueMap.value.s, HueMap.value.b)
         } else {
@@ -183,7 +183,7 @@ const sketch: Sketch = (p5) => {
         p5.textAlign(p5.LEFT, p5.TOP)
         p5.text(
           `${searchValue} 以上を検索`,
-          0,
+          10,
           ground.y - searchValue * gridSize - indexTextSize,
         )
       })
@@ -195,7 +195,7 @@ const sketch: Sketch = (p5) => {
       p5.noStroke()
       p5.fill(HueMap[type].h, HueMap[type].s, HueMap[type].b, 0.7)
       let xPos: number = 0
-      if (type === 'hi') {
+      if (type === 'high') {
         xPos = (gridSize / 3) * 2
       } else if (type === 'mid') {
         xPos = gridSize / 3
@@ -211,22 +211,22 @@ const sketch: Sketch = (p5) => {
         p5.textAlign(p5.CENTER, p5.CENTER)
         p5.fill(HueMap[type].h, HueMap[type].s, HueMap[type].b)
         p5.textSize(resultTextSize)
-        if (type === 'hi') {
+        if (type === 'high') {
           drawBlock(p5, () => {
             p5.stroke(HueMap[type].h, HueMap[type].s, HueMap[type].b)
             p5.fill(0, 0, 100)
             p5.rect(
               (indexValue + 2 + margin) * gridSize,
-              ground.y - 27 * gridSize,
+              ground.y - 28 * gridSize,
               gridSize * 2,
             )
           })
           drawBlock(p5, () => {
             p5.fill(HueMap[type].h, HueMap[type].s, HueMap[type].b)
             p5.text(
-              'hi',
+              'high',
               (indexValue + 3 + margin) * gridSize,
-              ground.y - 26 * gridSize,
+              ground.y - 27 * gridSize,
             )
           })
         } else if (type === 'mid') {
@@ -235,7 +235,7 @@ const sketch: Sketch = (p5) => {
             p5.fill(0, 0, 100)
             p5.rect(
               (indexValue + 1 + margin) * gridSize - gridSize / 2,
-              ground.y - 22 * gridSize - resultTextSize * 2,
+              ground.y - 26 * gridSize,
               gridSize * 2,
             )
           })
@@ -244,7 +244,7 @@ const sketch: Sketch = (p5) => {
             p5.text(
               'mid',
               (indexValue + 1 + margin) * gridSize + gridSize / 2,
-              ground.y - 22 * gridSize - resultTextSize,
+              ground.y - 25 * gridSize,
             )
           })
         } else {
@@ -253,16 +253,16 @@ const sketch: Sketch = (p5) => {
             p5.fill(0, 0, 100)
             p5.rect(
               (indexValue - 1 + margin) * gridSize,
-              ground.y - 21 * gridSize,
+              ground.y - 24 * gridSize,
               gridSize * 2,
             )
           })
           drawBlock(p5, () => {
             p5.fill(HueMap[type].h, HueMap[type].s, HueMap[type].b)
             p5.text(
-              'lo',
+              'low',
               (indexValue + margin) * gridSize,
-              ground.y - 20 * gridSize,
+              ground.y - 23 * gridSize,
             )
           })
         }
@@ -274,7 +274,7 @@ const sketch: Sketch = (p5) => {
     // 現在の手数を表示
 
     drawBlock(p5, () => {
-      p5.textSize(resultTextSize)
+      p5.textSize(gridSize)
       p5.textAlign(p5.LEFT, p5.BOTTOM)
       p5.fill(0)
       p5.text('二分探索', gridSize, gridSize * 2)
@@ -295,11 +295,11 @@ const sketch: Sketch = (p5) => {
     drawSearchValue()
 
     const pos = index % result.length
-    const { hi, mid, lo } = result[pos]
+    const { high, mid, low } = result[pos]
 
     if (!isFirstView) {
-      drawHiLo('hi', hi)
-      drawHiLo('lo', lo)
+      drawHiLo('high', high)
+      drawHiLo('low', low)
 
       if (index % result.length > 0) {
         drawHiLo('mid', mid)
@@ -310,7 +310,7 @@ const sketch: Sketch = (p5) => {
   }
 
   const drawStop = () => {
-    draw(true)
+    draw()
     p5.background(0, 0, 0, 0.5)
     // 再生アイコンを真ん中に描画
     drawBlock(p5, () => {

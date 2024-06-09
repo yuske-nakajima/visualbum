@@ -331,6 +331,15 @@ const sketch: Sketch = (p5) => {
     }
   }
 
+  p5.keyPressed = () => {
+    if (p5.key === ' ') {
+      isStop = !isStop
+      if (!isStop) {
+        p5.loop()
+      }
+    }
+  }
+
   p5.draw = () => {
     if (isStop) {
       drawStop()

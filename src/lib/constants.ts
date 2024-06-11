@@ -170,4 +170,8 @@ export const PAGE_INFO_LIST: PageInfo[] = [
     title: 'binary-search',
     href: '/code/binary-search',
   },
+  {
+    title: 'eyes',
+    href: '/code/eyes',
+  },
 ]

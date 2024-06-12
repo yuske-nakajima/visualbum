@@ -174,4 +174,8 @@ export const PAGE_INFO_LIST: PageInfo[] = [
     title: 'eyes',
     href: '/code/eyes',
   },
+  {
+    title: 'smile',
+    href: '/code/smile',
+  },
 ]

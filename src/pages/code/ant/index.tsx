@@ -15,7 +15,7 @@ const sketch: Sketch = (p5) => {
   let moveIndex = 0
 
   p5.setup = () => {
-    p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
+    p5.createCanvas(p5.windowWidth, p5.windowHeight)
     p5.background(255)
     p5.noStroke()
   }

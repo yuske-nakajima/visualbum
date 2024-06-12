@@ -10,7 +10,7 @@ const sketch: Sketch = (p5) => {
   let mover: Mover[] = []
 
   p5.setup = () => {
-    p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
+    p5.createCanvas(p5.windowWidth, p5.windowHeight)
     for (let i = 0; i < MOVER_LENGTH; i++) {
       mover.push(
         new Mover(

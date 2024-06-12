@@ -26,7 +26,7 @@ const sketch: Sketch = (p5) => {
   let h: number
 
   p5.setup = () => {
-    p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
+    p5.createCanvas(p5.windowWidth, p5.windowHeight)
     p5.colorMode(p5.HSB)
 
     x0 = p5.floor(p5.random(1, 20))

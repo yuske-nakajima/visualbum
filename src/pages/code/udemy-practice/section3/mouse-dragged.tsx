@@ -3,7 +3,7 @@ import { type Sketch } from '@p5-wrapper/react'
 
 const sketch: Sketch = (p5) => {
   p5.setup = () => {
-    p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
+    p5.createCanvas(p5.windowWidth, p5.windowHeight)
     p5.colorMode(p5.HSB)
     p5.background(0, 0, 100)
     p5.noStroke()

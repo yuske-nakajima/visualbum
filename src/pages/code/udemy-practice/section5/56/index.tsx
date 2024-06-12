@@ -11,7 +11,7 @@ const sketch: Sketch = (p5) => {
   let normal2: Vector
 
   p5.setup = () => {
-    p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
+    p5.createCanvas(p5.windowWidth, p5.windowHeight)
     v1 = p5.createVector(1, 2)
     v2 = p5.createVector(3, 4)
 

@@ -8,7 +8,7 @@ const sketch: Sketch = (p5) => {
   let mover: Mover
 
   p5.setup = () => {
-    p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
+    p5.createCanvas(p5.windowWidth, p5.windowHeight)
     mover = new Mover(p5, 10, 0, 1)
     attractor = new Attractor(p5)
   }

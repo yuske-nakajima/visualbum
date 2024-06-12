@@ -14,7 +14,7 @@ const sketch: Sketch = (p5) => {
   let progressMessagesLength: number
 
   p5.setup = () => {
-    p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
+    p5.createCanvas(p5.windowWidth, p5.windowHeight)
     p5.colorMode(p5.HSB)
 
     const x0 = p5.floor(p5.random(1, 100))

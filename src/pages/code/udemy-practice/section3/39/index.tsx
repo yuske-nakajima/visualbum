@@ -16,7 +16,7 @@ const sketch: Sketch = (p5) => {
 
   p5.setup = () => {
     // p5.frameRate(5)
-    p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
+    p5.createCanvas(p5.windowWidth, p5.windowHeight)
     p5.colorMode(p5.HSB)
     p5.angleMode(p5.DEGREES)
     vecLocation1 = p5.createVector(p5.width / 2, p5.height / 2) // center

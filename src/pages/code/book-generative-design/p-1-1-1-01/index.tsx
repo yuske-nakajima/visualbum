@@ -8,9 +8,9 @@ const sketch: Sketch = (p5) => {
   p5.preload = () => {}
 
   p5.setup = () => {
-    p5.createCanvas(p5.windowWidth - 22, p5.windowHeight - 22)
+    p5.createCanvas(p5.windowWidth, p5.windowHeight)
     p5.noStroke()
-    p5.colorMode(p5.HSB, p5.windowWidth - 22, p5.windowHeight - 22, 100)
+    p5.colorMode(p5.HSB, p5.windowWidth, p5.windowHeight, 100)
   }
 
   p5.draw = () => {

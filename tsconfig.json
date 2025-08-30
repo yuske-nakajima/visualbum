@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"], //* 使用する標準ライブラリを指定します。 DOM API、繰り返しのサポートなどを含みます。
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ], //* 使用する標準ライブラリを指定します。 DOM API、繰り返しのサポートなどを含みます。
     "allowJs": true, //* JavaScriptファイルのコンパイルを許可します。
     "strict": true, //* すべての厳密な型チェックを有効にします。より安全なコードのために。
     "noEmit": true, //* TypeScriptのコンパイル結果のJavaScriptファイルを生成しません。
@@ -21,9 +25,18 @@
     "useDefineForClassFields": true, //* 標準の class fields構文を使用します。
     "forceConsistentCasingInFileNames": true, //* ファイル名の大文字・小文字の一貫性を強制します。
     "paths": {
-      "@/*": ["./src/*"] //* "@/"から始まる名前空間パス用の解決エイリアスを設定します。
-    }
+      "@/*": [
+        "./src/*"
+      ] //* "@/"から始まる名前空間パス用の解決エイリアスを設定します。
+    },
+    "target": "ES2017"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"], //* コンパイルに含めるファイルを指定します。
-  "exclude": ["node_modules"] //* コンパイルから除外するファイルを指定します。
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ], //* コンパイルに含めるファイルを指定します。
+  "exclude": [
+    "node_modules"
+  ] //* コンパイルから除外するファイルを指定します。
 }

@@ -13,7 +13,7 @@
       "Bash(cp:*)",
       "Bash(mkdir:*)",
       "Bash(touch:*)",
-      "Bash(npm run:*)"
+      "Bash(bun run:*)"
     ],
     "deny": [
       "Bash(sudo:*)",
@@ -33,8 +33,7 @@
       "Bash(curl:*)",
       "Bash(wget:*)",
       "Bash(nc:*)",
-      "Bash(npm uninstall:*)",
-      "Bash(npm remove:*)",
+      "Bash(bun remove:*)",
       "Bash(psql:*)",
       "Bash(mysql:*)",
       "Bash(mongod:*)"
@@ -47,7 +46,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "npm run check"
+            "command": "bun run check"
           }
         ]
       }

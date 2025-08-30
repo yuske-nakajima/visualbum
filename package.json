@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "check": "tsc -noEmit -skipLibCheck",
     "lint": "next lint",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\""
   },
